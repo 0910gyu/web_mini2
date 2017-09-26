@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import car.dto.SidoVO;
+import car.dto.Station2VO;
 import car.dto.StationVO;
 import car.util.DBUtil;
 
@@ -58,6 +59,40 @@ public class StationDao {
 				String lat = rs.getString(5);
 				String longI = rs.getString(6);
 				sList.add(new StationVO(idNum, csNm, addr, dpNm, lat, longI));
+			}
+		} finally {
+			DBUtil.close(c, pstmt, rs);
+		}
+		return sList;
+	}
+	
+	public static ArrayList<Station2VO> infoStation2(int code) throws SQLException{
+		Station2VO st = null;
+		Connection c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Station2VO> sList = new ArrayList<>();
+		
+		sql = " SELECT S.ID ID, CSNM, ADDR, LAT, LONGI, CODE, C.CNT CNT "
+				+ " FROM STATION2 S "
+				+ " INNER JOIN (SELECT ID, COUNT(*) AS CNT FROM CHARGER GROUP BY ID) C ON S.ID = C.ID "
+				+ " WHERE CODE = ? ";
+		System.out.println(sql); 		// @@@
+		try {
+			c = DBUtil.getConnection();
+			pstmt = c.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int idNum = rs.getInt("ID");
+				String csNm = rs.getString("CSNM");
+				String addr = rs.getString("ADDR");
+				String lat = rs.getString("LAT");
+				String longI = rs.getString("LONGI");
+				int cnt = rs.getInt("CNT");
+				st = new Station2VO(idNum, csNm, addr, lat, longI, code, cnt);
+				sList.add(st);
+//				sList.add(new Station2VO(idNum, csNm, addr, lat, longI, code, cnt));
 			}
 		} finally {
 			DBUtil.close(c, pstmt, rs);

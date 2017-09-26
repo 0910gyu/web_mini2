@@ -39,36 +39,46 @@ body {font-family: "Lato", sans-serif}
     
   </div>
 </header>
-		<div style="width:350px; height:270px; float:left; display:inline-block;">
+		<div style="width:250px; height:270px; float:left; display:inline-block;">
 			<div style="margin-top: 80px; padding-bottom: 10px;">
-			<form action = "./loc" method = "post"> 
-			<input type="hidden" name="command" value="sido">
+			<form action = "./loc" method = "get"> 
+				<input type="hidden" name="command" value="sido">
 				<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">지역 선택</span>
 				<br style="line-height: 1.5;">
- 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required>
+ 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required onchange=selectStation("${pageContext.request.contextPath}")>
  					<option value="">시도 선택</option>
  					<c:forEach items="${sessionScope.sdList}" var="data">
  						<option value=${data.sidoID}>${data.sidoNm}</option>
  					</c:forEach>
 				</select>
-<!-- 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO">
-					<option value="">시도</option>
-					<option value="2">강원도</option>
-					<option value="3">경기도</option>
-					<option value="4">경상도</option>
-					<option value="5">광주광역시</option>
-					<option value="6">대구광역시</option>	
-					<option value="7">대전광역시</option>
-					<option value="8">부산광역시</option>
-					<option value="1">서울특별시</option>
-					<option value="9">울산광역시</option>
-					<option value="10">전라도</option>
-					<option value="11">제주도</option>
-					<option value="12">충청도</option>
-				</select>  -->
 				<button type="submit" id="word_btn" value="검색" style="width:10px; height:20px; margin-top:11px;"><img src="./images/reading_glass.gif" alt="조회 버튼"></button>
 			</form>
-			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var httpRequest = null;
+			function sendRequest(addr, params){
+				httpRequest = new XMLHttpRequest();
+				httpRequest.onreadystatechange = viewTable;
+				httpRequest.open("GET", addr+"/loc?command=sido&SI_DO="+encodeURIComponent(params), true);
+				httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				httpRequest.send(null);
+			}
+			
+			function selectStation(addr){
+				var str;
+				str = document.getElementById("SI_DO").value;
+				sendRequest(addr, str);
+			}
+			
+			function viewTable(){
+	    		if(httpRequest.readyState == 4 && httpRequest.status == 200){
+	    			viewStation.innerHTML = httpRequest.responseText;
+				}			
+			}
+		
+		</script>
+			
 		<div class="search_box" style="float:left;">
  		<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">충전소 분류</span>
 			<form action = "./loc" method="post">
@@ -84,14 +94,14 @@ body {font-family: "Lato", sans-serif}
 				onclick="window.location.reload(true);">초기화</a>
 		</div>
 		</div>
-		<div style="margin-top:50px; width:900px; height:200px; float:right; display:inline-block;">
+		<div id="viewStation" style="margin-top:50px; width:800px; height:200px; float:left; display:inline-block;">
 			<img src="./images/car3.PNG" width="800px" height="250px">
 		</div>
 		
 <div class="w3-bar w3-indigo w3-card-2">
 </div>
 
-
+   
 
 <!-- Add Google Maps -->
 <div style="margin-left:5px; padding-top:30px;">

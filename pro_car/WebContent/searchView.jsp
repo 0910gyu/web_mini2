@@ -47,7 +47,7 @@ body {font-family: "Lato", sans-serif}
 			<input type="hidden" name="command" value="sido">
 				<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">지역 선택</span>
 				<br style="line-height: 1.5;">
- 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required>
+ 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required >
  					<option value="">시도 선택</option>
  					<c:forEach items="${sessionScope.sdList}" var="data">
  						<option value=${data.sidoID}>${data.sidoNm}</option>

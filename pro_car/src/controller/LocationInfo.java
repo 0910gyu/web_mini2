@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import car.dao.StationDao;
 import car.dto.SidoVO;
+import car.dto.Station2VO;
 import car.dto.StationVO;
 
 @WebServlet("/loc")
@@ -19,9 +20,11 @@ public class LocationInfo extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("euc-kr");
 		String command = request.getParameter("command");
+		String code = request.getParameter("SI_DO");		// @@@
 		
-		System.out.println(command + " 0920");
 		
+		System.out.println(command + " 0926");
+		System.out.println(code); 							// @@@
 		try {
 			if(command.equals("sido")) {
 				getCode(request,response);
@@ -50,9 +53,10 @@ public class LocationInfo extends HttpServlet {
 		System.out.println(request.getSession().getAttribute("sdList")); 		// 0925 // @@@
 		String code = request.getParameter("SI_DO");
 		System.out.println(code + " 0920"); 		// @@@
-		ArrayList<StationVO> staList = StationDao.infoStation(Integer.parseInt(code));
+		ArrayList<Station2VO> staList = StationDao.infoStation2(Integer.parseInt(code));
 		request.setAttribute("staList", staList);
-		request.getRequestDispatcher("searchView.jsp").forward(request, response);
+		request.getRequestDispatcher("stationList.jsp").forward(request, response);
+//		request.getRequestDispatcher("searchView.jsp").forward(request, response);
 	}
 	
 	public void getCsinfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
