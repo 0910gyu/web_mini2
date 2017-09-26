@@ -15,14 +15,17 @@ public class UpdateDao {
 	public static void update(MemberVO mem) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		sql = "UPDATE member SET password = ? , email = ? WHERE id = ?";
+		sql = "UPDATE member SET pwd = ? , name = ? , mail = ? , addr = ? , phone = ?  WHERE id = ?";
 		try {
 			con = DBUtil.getConnection();
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mem.getPassword());
-			pstmt.setString(2, mem.getEmail());
-			pstmt.setString(3, mem.getId());
+			pstmt.setString(2, mem.getName());
+			pstmt.setString(3, mem.getEmail());
+			pstmt.setString(4, mem.getAddr());
+			pstmt.setString(5, mem.getPhone());
+			pstmt.setString(6, mem.getId());
 
 			pstmt.executeQuery();
 
