@@ -91,15 +91,14 @@ public class StationListService extends HttpServlet {
 				}
 			}
 			
-			for(StationVO st : list) System.out.println(st);		// @@@
+//			for(StationVO st : list) System.out.println(st);		// @@@
 			for(StationVO st : list) {
-				System.out.print(st.getId() + ", ");
-				System.out.print(st.getCsnm() + ", ");
-				System.out.print(st.getAddr() + ", ");
-				System.out.print(st.getId() + ", ");
-				System.out.print(st.getId() + ", ");
-				System.out.print(st.getId() + ", ");
-				System.out.print(st.getId() + ", ");
+				System.out.print(st.getId() + "; ");
+				System.out.print(st.getCsnm() + "; ");
+				System.out.print(st.getAddr() + "; ");
+				System.out.print(st.getCpnm() + "; ");
+				System.out.print(st.getLat() + "; ");
+				System.out.println(st.getLongi() + "; ");
 			}
 			
 		} catch (ParserConfigurationException e) {
