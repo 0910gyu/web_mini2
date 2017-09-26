@@ -7,6 +7,7 @@
 	 String id = (String)request.getParameter("id");
 	 LoginDAO dao = LoginDAO.getInstance();
 	 MemberVO mem= dao.getUserInfo(id);
+	 session.setAttribute("vo", mem);
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,14 +42,26 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="30%">이메일 주소</td>
+				<td width="30%">이메일</td>
 				<td width=70%>
 					<%=mem.getEmail() %>
 				</td>
 			</tr>
+			<tr>
+				<td width="30%">집 주소</td>
+				<td width=70%>
+					<%=mem.getAddr() %>
+				</td>
+			</tr>
+			<tr>
+				<td width="30%">전화번호</td>
+				<td width=70%>
+					<%=mem.getPhone() %>
+				</td>
+			</tr>
 		</table>
 		<br> <br> 
-		<a href="update.jsp"><input type="submit" value="수정"></a> 
+		<input type="button" value="수정" Onclick="location.href='update.jsp'">
 		
 	</form>
 

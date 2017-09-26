@@ -38,9 +38,17 @@ body {font-family: "Lato", sans-serif}
 		<div style="width:350px; height:270px; float:left; display:inline-block;">
 			<div style="margin-top: 80px; padding-bottom: 10px;">
 			<form action = "./loc" method = "post"> 
+			<input type="hidden" name="command" value="sido">
 				<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">지역 선택</span>
 				<br style="line-height: 1.5;">
-				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO">
+				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required>
+ 					<option value="">시도 선택</option>
+ 					<c:forEach items="${sessionScope.sdList}" var="data">
+ 						<option value=${data.sidoID}>${data.sidoNm}</option>
+ 					</c:forEach>
+				</select>
+					
+<!-- 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO">
 				<option value="">시도</option>
 				<option value="2">강원도</option>
 				<option value="3">경기도</option>
@@ -54,7 +62,7 @@ body {font-family: "Lato", sans-serif}
 				<option value="10">전라도</option>
 				<option value="11">제주도</option>
 				<option value="12">충청도</option>
-				</select> 
+ 				</select>  -->
 				<button type="submit" id="word_btn" style="width:10px; height:10px; margin-top:11px;"><img src="./images/reading_glass.gif" alt="조회 버튼"></button>
 			</form>
 			</div>
@@ -116,15 +124,24 @@ body {font-family: "Lato", sans-serif}
 <!-- 구글 지도 -->
 <script>
 function myMap() {
-	var a=document.getElementById("a").value;
-	var b=document.getElementById("b").value;
-	var mapProp= {
-	    center:new google.maps.LatLng(a,b),
-	    zoom:18,
-	};
-	var map=new google.maps.Map(document.getElementById("map"),mapProp);
+		var a = document.getElementById("a").value;
+		var b = document.getElementById("b").value;
 
-	}
+		var myCenter = new google.maps.LatLng(a, b);
+		var mapCanvas = document.getElementById("map");
+		var mapOptions = {
+			center : myCenter,
+			zoom : 18
+		};
+		var map = new google.maps.Map(mapCanvas, mapOptions);
+		var marker = new google.maps.Marker({
+			position : myCenter
+		});
+		marker.setMap(map);
+
+		}
+	
+
 </script>
 <!-- 구글 지도 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjvtC_0Hr83DsKOtKr0oamgTdwyBtcuho&callback=myMap"></script>

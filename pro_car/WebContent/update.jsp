@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>update.jsp</title>
 <style type="text/css">
 
 
@@ -13,9 +13,9 @@
 </style>
 </head>
 <body>
-		<%
-  		 MemberVO mem = (MemberVO)session.getAttribute("mem");
-		%>
+<%
+  	MemberVO mem = (MemberVO)session.getAttribute("vo");
+%>
 <br>
 	<h3>개인 정보 수정하기</h3>
 		<br>
@@ -23,20 +23,39 @@
 			  <table border="1" cellspacing="1" width="60%">
 				  <tr>
 					<td width=30%>사용자 아이디</td>
-					<td width=70%><%=mem.getId()%></td>
-				  </tr>
-				  <tr>
-					<td width="30%">이름</td>
-					<td width="70%">${mem.name }</td>
+					<td width=70%>
+						<%=mem.getId()%>
+					</td>
 				  </tr>
 				  <tr>
 					<td width="30%">비밀번호 수정</td>
-					<td width="70%"><input type="password" name="password"
-					value="<%=mem.getPassword()%>"></td>
+					<td width="70%">
+						<input type="password" name="password" value="<%= mem.getPassword() %>">
+					</td>
 				  </tr>			  
 				  <tr>
-					<td width="30%">이메일 주소</td>
-					<td width="70%">${mem.email }</td>	  
+					<td width="30%">이름</td>
+					<td width="70%">
+						<input type="text" name="name" value="<%= mem.getName() %>">
+					</td>
+				  </tr>
+				  <tr>
+					<td width="30%">이메일</td>
+					<td width="70%">
+						<input type="email" name="mail" value="<%= mem.getEmail() %>">
+					</td>	  
+				  <tr>				  
+				  <tr>
+					<td width="30%">주소</td>
+					<td width="70%">
+						<input type="text" name="addr" value="<%= mem.getAddr() %>">
+					</td>	  
+				  <tr>				  
+				  <tr>
+					<td width="30%">전화번호</td>
+					<td width="70%">
+						<input type="tel" name="phone" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" value="<%= mem.getPhone() %>">
+					</td>	  
 				  <tr>				  
 			</table>  
 			<input type="hidden" value="update"  name="command">

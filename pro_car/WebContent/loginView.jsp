@@ -423,7 +423,7 @@ window.onclick = function(event) {
 <!-- 개인 정보 -->
  <script>
 		function info(){
-			location.href="info.jsp?id=${id}&password=${password}&name=${name}&email=${email}";
+			location.href="info.jsp?id=${id}";
 		}
 </script>
 
