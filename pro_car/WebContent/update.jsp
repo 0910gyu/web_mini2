@@ -30,7 +30,7 @@
 				  <tr>
 					<td width="30%">비밀번호 수정</td>
 					<td width="70%">
-						<input type="password" name="password" value="<%= mem.getPassword() %>">
+						<input type="password" name="pwd" value="<%= mem.getPassword() %>">
 					</td>
 				  </tr>			  
 				  <tr>
