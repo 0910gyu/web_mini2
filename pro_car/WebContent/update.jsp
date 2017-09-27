@@ -59,6 +59,7 @@
 				  <tr>				  
 			</table>  
 			<input type="hidden" value="update"  name="command">
+			<br><br>
 			<input type="submit" value="수정하기" >
 			<input type="button" value="메인으로" Onclick="location.href='loginView.jsp'">
 			

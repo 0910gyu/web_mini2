@@ -117,7 +117,7 @@ public class LoginSearch extends HttpServlet {
 		try {
 			JoinDao.memberJoin(mem);
 			request.setAttribute("mem", mem);
-			url = "index.html";
+			url = "addSuccess.jsp";
 		} catch (Exception e) {
 			request.setAttribute("error", "아이디 중복");
 			url = "error.jsp";
