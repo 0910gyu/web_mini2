@@ -29,18 +29,20 @@ contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <div class="container" style="width:600px; height:50px; overflow:auto; margin-top:80px;">
 <table id="t01" class="table table-hover">
 		<tr>
-			<th width="28px">ID</th>
-			<th width="180px">충전소명</th>
+			<!-- <th width="28px">ID</th> -->
+			<th width="202px">충전소명</th>
 			<th width="300px">주소</th>
 			<th width="60px">충전기 개수</th>
 		</tr>
 </table>
 </div>
-<div class="container" style="width:600px; height:180px; overflow:auto; ">
+<input type="text" id="bb" value="">
+<div class="container" style="width:585px; height:180px; overflow:auto; ">
 	<table id="t01" class="table table-hover">
 		<c:forEach items="${staList}" var="data">
 			<tr>
-				<td width="20px">${data.id}</td>
+				<td width="20px"><input type="radio" name="id" value=${data.id} onClick="document.getElementById('bb').value=this.value"></td>
+				<%-- <td width="20px">${data.id}</td> --%>
 				<td width="180px">${data.csNm}</td>
 				<td width="300px">${data.addr}</td>
 				<td width="60px" align="center">${data.cnt}</td>

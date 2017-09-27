@@ -21,7 +21,6 @@ body {font-family: "Lato", sans-serif}
 
 <%
 	request.getSession().getAttribute("sdList");
-	
 %>
 
 <!-- Navbar -->
