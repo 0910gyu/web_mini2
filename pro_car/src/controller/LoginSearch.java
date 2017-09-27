@@ -35,7 +35,7 @@ public class LoginSearch extends HttpServlet {
 
 		if (command.equals("login")) {
 			login(request, response);
-			System.out.println("로그인");
+//			System.out.println("로그인");
 		} else if (command.equals("join")) {
 			insertMember(request, response);
 			System.out.println("가입성공");
@@ -69,38 +69,37 @@ public class LoginSearch extends HttpServlet {
 		// 로그인
 	private void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String id = request.getParameter("id");
-		System.out.println(id);
 		String pwd = request.getParameter("pwd");
-		System.out.println(pwd);
-		MemberVO loginMember = new MemberVO();
-		loginMember.setId(id);
-		loginMember.setPassword(pwd);
+		MemberVO loginMember = null;
+		loginMember = LoginDAO.getUserInfo(id);
 		String url = null;
-		String result = LoginDAO.loginCheck(id, pwd);
-		if(result.equals("로그인 성공")) {//result==1
-		try {
-			LoginDAO.getInstance();
-			request.setAttribute("loginMember", loginMember);
-			url = "loginView.jsp";
-		} catch (Exception e) {
-			request.setAttribute("error", "입력 실패");
-			url = "error.jsp";
-			e.printStackTrace();
-		}
-
-		request.setAttribute("id", id);
-		request.setAttribute("pwd", pwd);
-		
-//		url = "loginView.jsp";
-
-		request.getRequestDispatcher(url).forward(request, response);
-		
-		System.out.println(loginMember.toString());
-		} else {
-			System.out.println("로그인 실패");
-			url = "error.jsp";
-			request.getRequestDispatcher(url).forward(request, response);
-		}
+		if(loginMember!=null) {
+				if(id.equals(loginMember.getId()) && pwd.equals(loginMember.getPassword())) {
+					try {
+						request.getSession().setAttribute("loginMember", loginMember);
+						request.setAttribute("mem", loginMember);
+						url = "loginSuccess.jsp";
+					} catch (Exception e) {
+						request.setAttribute("error", "입력 실패");
+						url = "error.jsp";
+						e.printStackTrace();
+					}
+					request.setAttribute("id", id);
+					request.setAttribute("pwd", pwd);
+					
+					request.getRequestDispatcher(url).forward(request, response);
+					System.out.println(loginMember.toString());
+					
+				} else {
+					System.out.println("로그인 실패");
+					url = "fail.jsp";
+					request.getRequestDispatcher(url).forward(request, response);
+				}
+			} else {
+						System.out.println("로그인 실패");
+						url = "fail.jsp";
+						request.getRequestDispatcher(url).forward(request, response);
+			}
 	}
 
 	// 회원가입
@@ -141,8 +140,8 @@ public class LoginSearch extends HttpServlet {
 		
 		try {
 			UpdateDao.update(mem);
-			request.setAttribute("mem", mem);
-			url = "loginView.jsp";
+			request.getSession().setAttribute("loginMember", mem);
+			url = "updateSuccess.jsp";
 		} catch (SQLException e) {
 			request.setAttribute("error", "에러");
 			url = "error.jsp";

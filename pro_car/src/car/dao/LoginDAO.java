@@ -24,7 +24,8 @@ public class LoginDAO {
 
 	private static String sql;
 	
-public static String loginCheck(String id, String pwd){
+	// 로그인 검증
+	public static String loginCheck(String id, String pwd){
 		System.out.println("로그인 검증");
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -64,7 +65,7 @@ public static String loginCheck(String id, String pwd){
 
 		return msg;
 		
-	}
+	} // end of loginCheck
 
 	
 //	public static int loginCheck(String id, String pwd) {
@@ -104,7 +105,8 @@ public static String loginCheck(String id, String pwd){
 //		
 //	}
 
-	public MemberVO getUserInfo(String id) {
+	// 회원정보 가져오기
+	public static MemberVO getUserInfo(String id) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -112,6 +114,7 @@ public static String loginCheck(String id, String pwd){
 		MemberVO member = null;
 
 		sql = "select * from member where id=?";
+		
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -135,5 +138,5 @@ public static String loginCheck(String id, String pwd){
 		}
 		return member;
 
-	}
+	} // end of getUserInfo
 }

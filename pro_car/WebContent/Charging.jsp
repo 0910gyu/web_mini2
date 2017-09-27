@@ -74,6 +74,7 @@ body {font-family: "Lato", sans-serif}
 		function viewTable(){
     		if(httpRequest.readyState == 4 && httpRequest.status == 200){
     			viewStation.innerHTML = httpRequest.responseText;
+    			viewCharger2.innerHTML = "";
 			}			
 		}
 		
@@ -86,7 +87,8 @@ body {font-family: "Lato", sans-serif}
 			httpRequest.onreadystatechange = viewCharger;
 			httpRequest.open("GET", addr+"/loc?command=charger&StationId="+encodeURIComponent(stationId), true);
 			httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			httpRequest.send(null);			
+			httpRequest.send(null);	
+			myMap(lat, longi);
 		} 
  		
  		function viewCharger(){
@@ -134,17 +136,19 @@ body {font-family: "Lato", sans-serif}
    
 
 <!-- Add Google Maps -->
+
 	<div style="margin-left:5px; padding-top:30px;">
 		<h1>MAP</h1>
 	</div>
 	
-	<div id="map" style="width:100%;height:400px; margin-left:5px; margin-right:5px"></div>
-
+	<div id="map" style="position:absolute; top:400px; left:250px; width: 1000px; height: 400px; overflow: hidden;">
+	</div>
+	
 
 <!-- 구글 지도 -->
 <script>
-function myMap() {
-  var myCenter = new google.maps.LatLng(37.478899, 126.881399);
+function myMap(lat, longi) {
+  var myCenter = new google.maps.LatLng(lat, longi);
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 18};
   var map = new google.maps.Map(mapCanvas, mapOptions);
@@ -160,7 +164,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 -->
 
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+<!-- <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
   <i class="fa fa-facebook-official w3-hover-opacity"></i>
   <i class="fa fa-instagram w3-hover-opacity"></i>
   <i class="fa fa-snapchat w3-hover-opacity"></i>
@@ -168,7 +172,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
   <i class="fa fa-twitter w3-hover-opacity"></i>
   <i class="fa fa-linkedin w3-hover-opacity"></i>
   <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">team 4</a></p>
-</footer>
+</footer> -->
 
 <script>
 // Automatic Slideshow - change image every 4 seconds

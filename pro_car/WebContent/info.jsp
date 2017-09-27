@@ -4,11 +4,17 @@
     pageEncoding="UTF-8" %>
     
 <%
-	 String id = (String)request.getParameter("id");
-	 LoginDAO dao = LoginDAO.getInstance();
-	 MemberVO mem= dao.getUserInfo(id);
-	 session.setAttribute("vo", mem);
 
+	MemberVO mem = (MemberVO)(request.getSession().getAttribute("loginMember"));
+	
+	 String id = mem.getId();
+	System.out.println(id);
+	/*  LoginDAO dao = LoginDAO.getInstance(); */
+/* 	 MemberVO mem = dao.getUserInfo(id);*/	
+	System.out.println(mem);
+	/*  session.setAttribute("vo", mem); */
+/* 	 session.getAttribute("mem");
+ */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,7 +48,7 @@ tr:hover{background-color:#f5f5f5}
 			<tr>
 				<td width=30%>사용자 아이디</td>
 				<td width=70%>
-					<%=mem.getId() %>
+					<%=id %>
 				</td>
 			</tr>
 			<tr>
@@ -78,6 +84,7 @@ tr:hover{background-color:#f5f5f5}
 		</table>
 		<br> <br> 
 		<input type="button" value="수정하기" Onclick="location.href='update.jsp'">
+		<%-- <input type="hidden" value="<%=mem.getId() %>" name="id"> --%>
 		<input type="button" value="메인으로" Onclick="location.href='loginView.jsp'">
 		
 	</form>

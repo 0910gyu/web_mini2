@@ -14,7 +14,7 @@
 </head>
 <body>
 <%
-  	MemberVO mem = (MemberVO)session.getAttribute("vo");
+	MemberVO mem = (MemberVO)(request.getSession().getAttribute("loginMember"));
 %>
 <br>
 	<h3>개인 정보 수정하기</h3>
@@ -60,7 +60,7 @@
 			</table>  
 			<input type="hidden" value="update"  name="command">
 			<br><br>
-			<input type="submit" value="수정하기" >
+			<input type="submit" value="저장하기" >
 			<input type="button" value="메인으로" Onclick="location.href='loginView.jsp'">
 			
 		</form>

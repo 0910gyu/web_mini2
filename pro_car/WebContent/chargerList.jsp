@@ -52,7 +52,7 @@ contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 
 
 <p>
-<a href="index.html">메인으로 이동</a>
+<!-- <a href="index.html">메인으로 이동</a> -->
 </center>
 
 

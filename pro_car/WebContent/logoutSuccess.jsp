@@ -13,7 +13,7 @@
 <script type="text/javascript">
 
 window.onload = function(){
-	alert("회원가입에 성공하셨습니다");
+	alert("로그아웃 하셨습니다");
 	document.location.href="index.html";
 }
 

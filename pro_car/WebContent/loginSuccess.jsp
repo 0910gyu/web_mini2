@@ -13,8 +13,8 @@
 <script type="text/javascript">
 
 window.onload = function(){
-	alert("회원가입에 성공하셨습니다");
-	document.location.href="index.html";
+	alert("로그인 하셨습니다");
+	document.location.href="loginView.jsp";
 }
 
 </script>

@@ -13,7 +13,7 @@
 <script type="text/javascript">
 
 window.onload = function(){
-	alert("회원가입에 성공하셨습니다");
+	alert("아이디/비밀번호를 확인해 주세요");
 	document.location.href="index.html";
 }
 
