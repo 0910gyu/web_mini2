@@ -38,45 +38,75 @@ body {font-family: "Lato", sans-serif}
     
   </div>
 </header>
-		<div style="width:250px; height:270px; float:left; display:inline-block;">
-			<div style="margin-top: 80px; padding-bottom: 10px;">
-			<form action = "./loc" method = "get"> 
-				<input type="hidden" name="command" value="sido">
-				<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">지역 선택</span>
-				<br style="line-height: 1.5;">
- 				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required onchange=selectStation("${pageContext.request.contextPath}")>
- 					<option value="">시도 선택</option>
- 					<c:forEach items="${sessionScope.sdList}" var="data">
- 						<option value=${data.sidoID}>${data.sidoNm}</option>
- 					</c:forEach>
-				</select>
-				<button type="submit" id="word_btn" value="검색" style="width:10px; height:20px; margin-top:11px;"><img src="./images/reading_glass.gif" alt="조회 버튼"></button>
-			</form>
-		</div>
+	<div style="width:250px; height:270px; float:left; display:inline-block;">
+		<div style="margin-top: 80px; padding-bottom: 10px;">
+		<form action = "./loc" method = "get"> 
+			<input type="hidden" name="command" value="sido">
+			<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">지역 선택</span>
+			<br style="line-height: 1.5;">
+				<select id="SI_DO" style="margin-left: 5px;" title="시도 선택" name="SI_DO" required onchange=selectStation("${pageContext.request.contextPath}")>
+					<option value="">시도 선택</option>
+					<c:forEach items="${sessionScope.sdList}" var="data">
+						<option value=${data.sidoID}>${data.sidoNm}</option>
+					</c:forEach>
+			</select>
+			<button type="submit" id="word_btn" value="검색" style="width:10px; height:20px; margin-top:11px;"><img src="./images/reading_glass.gif" alt="조회 버튼"></button>
+		</form>
+	</div>
+	
+
+	<script type="text/javascript">
+		var httpRequest = null;
+		function sendRequest(addr, params){
+			httpRequest = new XMLHttpRequest();
+			httpRequest.onreadystatechange = viewTable;
+			httpRequest.open("GET", addr+"/loc?command=sido&SI_DO="+encodeURIComponent(params), true);
+			httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			httpRequest.send(null);
+		}
 		
-		<script type="text/javascript">
-			var httpRequest = null;
-			function sendRequest(addr, params){
-				httpRequest = new XMLHttpRequest();
-				httpRequest.onreadystatechange = viewTable;
-				httpRequest.open("GET", addr+"/loc?command=sido&SI_DO="+encodeURIComponent(params), true);
-				httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				httpRequest.send(null);
-			}
-			
-			function selectStation(addr){
-				var str;
-				str = document.getElementById("SI_DO").value;
-				sendRequest(addr, str);
-			}
-			
-			function viewTable(){
-	    		if(httpRequest.readyState == 4 && httpRequest.status == 200){
-	    			viewStation.innerHTML = httpRequest.responseText;
-				}			
-			}
+		function selectStation(addr){
+			var str;
+			str = document.getElementById("SI_DO").value;
+			sendRequest(addr, str);
+		}
 		
-		</script>
+		function viewTable(){
+    		if(httpRequest.readyState == 4 && httpRequest.status == 200){
+    			viewStation.innerHTML = httpRequest.responseText;
+			}			
+		}
+		
+ 		function selectCharger(addr, stationId, lat, longi){
+/* 			document.getElementById('ee').value = stationId;
+ */			// sendRequest start
+  			document.getElementById('ff').value = lat;
+ 			document.getElementById('gg').value = longi;
+			httpRequest = new XMLHttpRequest();
+			httpRequest.onreadystatechange = viewCharger;
+			httpRequest.open("GET", addr+"/loc?command=charger&StationId="+encodeURIComponent(stationId), true);
+			httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			httpRequest.send(null);			
+		} 
+ 		
+ 		function viewCharger(){
+    		if(httpRequest.readyState == 4 && httpRequest.status == 200){
+    			viewCharger2.innerHTML = httpRequest.responseText;
+			} 			
+ 		}
+	</script>
+	
+<!--  	<div id="viewCharger" style="position:absolute; top:50px; left:850px; width:200px; height:20px; display:inline-block;">
+			충전소	<input type="text" id="ee" value="">
+	</div> -->
+	<div id="viewCharger2" style="position:absolute; top:50px; left:850px; width:200px; height:200px; display:inline-block;">
+		<table></table>
+	</div>			
+ 	<div id="viewCharger3" style="position:absolute; top:300px; left:850px; width:200px; height:100px; display:inline-block;">
+		<input type="hidden" id="ff" value="">
+		<input type="hidden" id="gg" value="">
+	</div>			
+
 			
 		<div class="search_box" style="float:left;">
  		<span style="font-weight: bolder;font: 14px; float:left; padding-left: 5px;">충전소 분류</span>
@@ -93,21 +123,22 @@ body {font-family: "Lato", sans-serif}
 				onclick="window.location.reload(true);">초기화</a>
 		</div>
 		</div>
-		<div id="viewStation" style="margin-top:50px; width:800px; height:200px; float:left; display:inline-block;">
-			<img src="./images/car3.PNG" width="800px" height="250px">
-		</div>
-		
+
+	<div id="viewStation" style="margin-top:50px; width:600px; height:200px; float:left; display:inline-block;">
+		<img src="./images/car3.PNG" width="800px" height="250px">
+	</div>
+			
 <div class="w3-bar w3-indigo w3-card-2">
 </div>
 
    
 
 <!-- Add Google Maps -->
-<div style="margin-left:5px; padding-top:30px;">
-<h1>MAP</h1>
-</div>
-
-<div id="map" style="width:100%;height:400px; margin-left:5px; margin-right:5px"></div>
+	<div style="margin-left:5px; padding-top:30px;">
+		<h1>MAP</h1>
+	</div>
+	
+	<div id="map" style="width:100%;height:400px; margin-left:5px; margin-right:5px"></div>
 
 
 <!-- 구글 지도 -->
@@ -167,6 +198,7 @@ function myFunction() {
 }
 
 </script>
+
 
 
 

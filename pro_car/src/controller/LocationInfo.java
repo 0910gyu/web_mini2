@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import car.dao.StationDao;
+import car.dto.ChargerVO;
 import car.dto.SidoVO;
 import car.dto.Station2VO;
 import car.dto.StationVO;
@@ -32,7 +33,9 @@ public class LocationInfo extends HttpServlet {
 					getSidoList(request,response);
 			} else if(command.equals("csNm")) {
 				getCsinfo(request,response);
-			}			
+			} else if(command.equals("charger")) {
+				getChargerList(request,response);
+			}				
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,6 +44,17 @@ public class LocationInfo extends HttpServlet {
 	} // end of service()
 	
 	
+	private void getChargerList(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		System.out.println("getChargerList()");	 		// @@@
+		int StationId = Integer.parseInt((String) request.getParameter("StationId"));
+		System.out.println(StationId);					// @@@
+		ArrayList<ChargerVO> chList = StationDao.getChargerList(StationId);
+		System.out.println(chList);					// @@@
+		request.setAttribute("chList", chList);
+		request.getRequestDispatcher("chargerList.jsp").forward(request, response);
+	}
+
+
 	public void getSidoList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		ArrayList<SidoVO> sdList = StationDao.getSidoList();		// 0922 // @@@
 		request.getSession().setAttribute("sdList", sdList);

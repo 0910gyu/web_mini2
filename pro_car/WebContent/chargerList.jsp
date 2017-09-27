@@ -9,7 +9,7 @@ contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>극장 검색</title>
+<title>충전기 현황</title>
 <style>
 	table#t01 tr:nth-child(even) {
 	    background-color: #eee;
@@ -27,31 +27,24 @@ contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/w3.css">
 <body>
+<%
+	request.getAttribute("chList");
+%>
 
-<div class="container" style="width:600px; height:50px; overflow:auto; margin-top:80px;">
+<div class="container" style="width:100px; height:50px; overflow:auto; margin-top:80px;">
 <table id="t01" class="table table-hover">
 		<tr>
 			<!-- <th width="28px">ID</th> -->
-			<th width="202px">충전소명</th>
-			<th width="300px">주소</th>
-			<th width="60px">충전기 개수</th>
+			<th width="80px">충전기<br>보유현황</th>
 		</tr>
 </table>
 </div>
 
 <div class="container" style="width:585px; height:180px; overflow:auto; ">
 	<table id="t01" class="table table-hover">
-		<c:forEach items="${staList}" var="data">
+		<c:forEach items="${requestScope.chList}" var="data">
 			<tr>
-			
-				<td width="20px">
-					<input type="radio" name="stationId" value='${data.id}' onClick='selectCharger("${pageContext.request.contextPath}", this.value, "${data.lat}", "${data.longi}")'>
-					
-				</td>
-				<%-- <td width="20px">${data.id}</td> --%>
-				<td width="180px">${data.csNm}</td>
-				<td width="300px">${data.addr}</td>
-				<td width="60px" align="center">${data.cnt}</td>
+				<td align="center" width="80px">${data.cpNm}</td>
 			</tr>
 		</c:forEach>
 	</table>
