@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>실패</h1>
+	<%
+		String message = (String) request.getAttribute("error");
+	%>
+	지금 발생된 error는
+	<%=message%>입니다
+	<br><br><br>
+	<a href="index.html">메인으로 가기</a>
 </body>
 </html>

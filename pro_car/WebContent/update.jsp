@@ -24,13 +24,13 @@
 				  <tr>
 					<td width=30%>사용자 아이디</td>
 					<td width=70%>
-						<%=mem.getId()%>
+						<input type="text" name="id" value="<%=mem.getId()%>">
 					</td>
 				  </tr>
 				  <tr>
 					<td width="30%">비밀번호 수정</td>
 					<td width="70%">
-						<input type="password" name="password" value="<%= mem.getPassword() %>">
+						<input type="password" name="pwd" value="<%= mem.getPassword() %>">
 					</td>
 				  </tr>			  
 				  <tr>
@@ -59,7 +59,8 @@
 				  <tr>				  
 			</table>  
 			<input type="hidden" value="update"  name="command">
-			<input type="submit" value="수정" ><br>
+			<input type="submit" value="수정하기" >
+			<input type="button" value="메인으로" Onclick="location.href='loginView.jsp'">
 			
 		</form>
 		

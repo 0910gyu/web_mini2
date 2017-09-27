@@ -15,6 +15,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>info</title>
+<style>
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover{background-color:#f5f5f5}
+
+</style>
 </head>
 <body>
 		<h3>개인 회원 정보 보기</h3>
@@ -61,7 +77,8 @@
 			</tr>
 		</table>
 		<br> <br> 
-		<input type="button" value="수정" Onclick="location.href='update.jsp'">
+		<input type="button" value="수정하기" Onclick="location.href='update.jsp'">
+		<input type="button" value="메인으로" Onclick="location.href='loginView.jsp'">
 		
 	</form>
 

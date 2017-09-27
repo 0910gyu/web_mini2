@@ -433,7 +433,7 @@ to {
 	<!-- 로그인 -->
 	<div id="id01" class="modal">
 
-		<form class="modal-content animate" action="./logSc">
+		<form class="modal-content animate" action="./logSc" method="post">
 			<div class="imgcontainer">
 				<span onclick="document.getElementById('id01').style.display='none'"
 					class="close" title="Close Modal">&times;</span> <img
@@ -461,14 +461,14 @@ to {
 	<!-- 회원가입 -->
 	<div id="id02" class="modal">
   <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
-  <form class="modal-content animate" action="./logSc">
+  <form class="modal-content animate" action="./logSc" method="post">
     <div class="container">
       <label><b>아이디</b></label>
       <input type="hidden" name="command" value="join">
       <input type="text" placeholder="아이디" name="id" required>
 
       <label><b>비밀번호</b></label>
-      <input type="password" placeholder="비밀번호" name="password" required>
+      <input type="password" placeholder="비밀번호" name="pwd" required>
       
       <label><b>이름</b></label>
       <input type="text" placeholder="이름" name="name" required>
