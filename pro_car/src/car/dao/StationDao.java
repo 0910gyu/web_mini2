@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import car.dto.ChargerVO;
 import car.dto.SidoVO;
 import car.dto.Station2VO;
 import car.dto.StationVO;
@@ -64,6 +65,34 @@ public class StationDao {
 			DBUtil.close(c, pstmt, rs);
 		}
 		return sList;
+	}
+	
+	public static ArrayList<ChargerVO> getChargerList(int stationId) throws SQLException {
+		ChargerVO ch = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ChargerVO> chList = new ArrayList<>();
+		
+		sql = " SELECT ID, CPNM "
+				+ " FROM CHARGER "
+				+ " WHERE ID = ? "
+				+ " ORDER BY CPNM ";
+		System.out.println(sql); 		// @@@
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, stationId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("ID");
+				String cpNm = rs.getString("CPNM");
+				chList.add(new ChargerVO(id, cpNm));
+			}
+		} finally {
+			DBUtil.close(conn, pstmt, rs);
+		}
+		return chList;
 	}
 	
 	public static ArrayList<Station2VO> infoStation2(int code) throws SQLException{
@@ -128,4 +157,5 @@ public class StationDao {
 		}
 		return st;
 	}
+
 }
